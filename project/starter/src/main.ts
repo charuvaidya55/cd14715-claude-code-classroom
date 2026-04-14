@@ -14,11 +14,26 @@ async function main() {
   // - Check if owner, repo, and prStr are provided
   // - Convert prStr to number and validate it's a valid integer
   // - Exit with error message if validation fails
+  if (!owner || !repo || !prStr) {
+  console.error("Usage: npm run dev <owner> <repo> <pr-number>");
+  process.exit(1);
+}
 
+const prNumber = Number(prStr);
+
+if (!Number.isInteger(prNumber)) {
+  console.error("PR number must be a valid integer");
+  process.exit(1);
+}
+  
   // TODO: Validate authentication (choose ONE method)
   // Students must have either:
   //   - ANTHROPIC_API_KEY environment variable, OR
   //   - AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY for Bedrock
+      if (!process.env.ANTHROPIC_API_KEY) {
+  console.error("ANTHROPIC_API_KEY is not set");
+  process.exit(1);
+}
   //
   // If using AWS Bedrock:
   //   - Verify AWS_REGION is set
@@ -33,6 +48,10 @@ async function main() {
   // - For AWS Bedrock: us.anthropic.claude-sonnet-4-5-20250929-v1:0
   // - For Anthropic API: claude-sonnet-4-5-20250929
   // Exit with error if not set
+  if (!process.env.ANTHROPIC_MODEL) {
+  console.error("ANTHROPIC_MODEL is not set");
+  process.exit(1);
+}
 
   console.log('start here', owner, repo, prStr)
   try {

@@ -38,5 +38,10 @@ export const mcpServersConfig = {
    * - args: ['-y', '@eslint/mcp@latest']
    * - env: {}
    */
-  eslint: { }
-};
+  eslint: {
+    type: 'stdio' as const,
+    command: 'npx',
+    args: ['-y', '@eslint/mcp@latest'],
+    env: {}
+  }
+  };
